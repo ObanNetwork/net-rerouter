@@ -1,0 +1,6 @@
+[submodule "deps/minhook"]
+	path = deps/minhook
+	url = https://github.com/TsudaKageyu/minhook
+[submodule "deps/ini_rw"]
+	path = deps/ini_rw
+	url = https://github.com/nightmareci/ini_rw
