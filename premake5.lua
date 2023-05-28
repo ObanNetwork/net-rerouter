@@ -62,19 +62,16 @@ workspace "net-rerouter"
 		}
 
 		dependson {
-			"MinHook",
 			"ini_rw",
 		}
 
 		links {
-			"MinHook",
 			"ini_rw",
 		}
 
 		includedirs {
 			"./src/",
 
-			"./deps/minhook/include/",
 			"./deps/ini_rw/src"
 		}
 
@@ -83,20 +80,6 @@ workspace "net-rerouter"
 		}
 
 	group "Dependencies"
-
-	project "MinHook"
-		targetname "MinHook"
-
-		language "c++"
-		kind "staticlib"
-
-		files {
-			"./deps/minhook/src/**",
-		}
-
-		includedirs {
-			"./deps/minhook/include/",
-		}
 
 	project "ini_rw"
 		targetname "ini_rw"

@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <functional>
-#include <MinHook.h>
 
 namespace hook
 {

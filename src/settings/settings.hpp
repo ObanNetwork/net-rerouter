@@ -8,6 +8,7 @@ public:
 		Unknown,
 		NFSU,
 		NFSU2,
+		NFSMW,
 	};
 
 	static void init(game_t game);
@@ -16,7 +17,6 @@ public:
 	static const char* ip;
 	static std::uint16_t port;
 	static std::uint16_t buddyPort;
-	static const char* domain;
 	static game_t game;
 
 	static std::string va(const char* fmt, ...)

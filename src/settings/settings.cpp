@@ -5,8 +5,6 @@ const char* settings::ini_file = "net-rerouter.ini";
 
 const char* settings::ip = "127.0.0.1";
 std::uint16_t settings::port = USHRT_MAX;
-std::uint16_t settings::buddyPort = 13505;
-const char* settings::domain = "http://localhost/";
 settings::game_t settings::game = settings::game_t::Unknown;
 
 void settings::init(settings::game_t game)
@@ -15,17 +13,17 @@ void settings::init(settings::game_t game)
 	PRINT_INFO("Setting up config for %i", settings::game);
 
 	const char* port = "65565";
-	const char* domain_path = "/";
 
 	switch (game)
 	{
 	case settings::game_t::NFSU:
-		domain_path = "/service/nfsu/";
 		port = "10900";
 		break;
 	case settings::game_t::NFSU2:
-		domain_path = "/service/nfsu2/";
 		port = "20920";
+		break;
+	case settings::game_t::NFSMW:
+		port = "30920";
 		break;
 	}
 
@@ -34,9 +32,8 @@ void settings::init(settings::game_t game)
 		std::string ini_default = settings::va(
 			"[network]\n"
 			"ip = 127.0.0.1\n"
-			"port = %s\n"
-			"domain = http://localhost%s\n",
-			port, domain_path
+			"port = %s\n",
+			port
 		);
 
 		settings::ini = ini_create(ini_default.data(), ini_default.length() + 1);
@@ -60,16 +57,6 @@ void settings::init(settings::game_t game)
 			settings::port = std::stoi(port);
 		}
 	}
-
-	if (const char* buddyPort = ini_get(settings::ini, "network", "buddyPort"))
-	{
-		if (settings::is_num(buddyPort))
-		{
-			settings::buddyPort = std::stoi(buddyPort);
-		}
-	}
-
-	settings::domain = ini_get(settings::ini, "network", "domain");
 }
 
 bool settings::is_num(const char* input)

@@ -30,13 +30,19 @@ extern "C"
 			hook::set(0x005886B0 + 0x1, settings::ip);
 			hook::set(0x007FBE00, settings::port);
 		}
+		else if (!std::strcmp(reinterpret_cast<char*>(0x008ADE98), "NFS Most Wanted"))
+		{
+			settings::init(settings::game_t::NFSMW);
+
+			//*pcnfs06.ea.com reroute
+			hook::set(0x0056E458 + 0x1, settings::ip);
+			hook::set(0x0078ACC0 + 0x1, settings::ip);
+			hook::set(0x008F42E8, settings::port);
+		}
 		else
 		{
 			PRINT_ERROR("%s", "Unable to determine game!");
 			return;
 		}
-
-		//PRINT_DEBUG("Setting IP to \"%s:%i\"", settings::ip, settings::port);
-		//PRINT_DEBUG("Setting BUDDY IP to \"%s:%i\"", settings::ip, settings::buddyPort);
 	}
 }
