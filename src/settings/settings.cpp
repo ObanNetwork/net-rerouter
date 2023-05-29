@@ -10,21 +10,15 @@ settings::game_t settings::game = settings::game_t::Unknown;
 void settings::init(settings::game_t game)
 {
 	settings::game = game;
-	PRINT_INFO("Setting up config for %i", settings::game);
 
+#ifndef DISABLE_INI
 	const char* port = "65565";
 
 	switch (game)
 	{
-	case settings::game_t::NFSU:
-		port = "10900";
-		break;
-	case settings::game_t::NFSU2:
-		port = "20920";
-		break;
-	case settings::game_t::NFSMW:
-		port = "30920";
-		break;
+		case settings::game_t::NFSU: port = "10900"; break;
+		case settings::game_t::NFSU2: port = "20920"; break;
+		case settings::game_t::NFSMW: port = "30920"; break;
 	}
 
 	if (!std::filesystem::exists(settings::ini_file))
@@ -57,6 +51,16 @@ void settings::init(settings::game_t game)
 			settings::port = std::stoi(port);
 		}
 	}
+#else
+	settings::ip = "127.0.0.1";
+
+	switch (game)
+	{
+		case settings::game_t::NFSU: settings::port = 10900; break;
+		case settings::game_t::NFSU2: settings::port = 20920; break;
+		case settings::game_t::NFSMW: settings::port = 30920; break;
+	}
+#endif
 }
 
 bool settings::is_num(const char* input)
